@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>الثراء السريع 💸</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Arial', sans-serif;
+      transition: background 1s ease;
+      color: white;
+    }
+
+    .hero {
+      background-image: url('https://images.unsplash.com/photo-1605902711622-cfb43c4437e1'); /* صورة ثراء */
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 40px;
+      border-radius: 20px;
+      max-width: 600px;
+    }
+
+    h1 {
+      font-size: 40px;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 20px;
+      margin-bottom: 30px;
+    }
+
+    .cta-button {
+      background-color: gold;
+      color: black;
+      border: none;
+      padding: 15px 30px;
+      font-size: 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .cta-button:hover {
+      background-color: #f2c200;
+    }
+
+    /* عند التفعيل */
+    .troll {
+      background-image: url('https://i.imgur.com/Gn2Y2z9.jpeg'); /* صورة مضحكة */
+      background-size: cover;
+      background-position: center;
+    }
+
+    .message {
+      display: none;
+      font-size: 24px;
+      margin-top: 20px;
+      color: #ffcc00;
+    }
+
+    .show {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="hero" id="hero">
+    <div class="overlay">
+      <h1>اكسب مليون دولار 💰 بعد ضغطة زر واحدة!</h1>
+      <p>هل أنت مستعد لتغيير حياتك؟ فقط اضغط الزر أدناه وابدأ رحلة الثراء الفاحش!</p>
+      <button class="cta-button" onclick="revealTruth()">اضغط الآن!</button>
+      <div class="message" id="message">😂 لقد تم خداعك... لا أحد يصبح غنياً بضغطة زر!</div>
+    </div>
+  </div>
+
+  <script>
+    function revealTruth() {
+      const hero = document.getElementById("hero");
+      const message = document.getElementById("message");
+
+      hero.classList.add("troll");
+      message.classList.add("show");
+    }
+  </script>
+</body>
+  </html>
