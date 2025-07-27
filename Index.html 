@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>ملياردير - الزر السحري للثراء</title>
+</head>
+<body style="text-align:center; direction:rtl; font-family:Tahoma;">
+  <h1>💰 مرحبًا بك في لعبة الملياردير!</h1>
+  <p>اضغط على الزر السحري وشاهد ماذا سيحدث 👇</p>
+  <button onclick="alert('مفاجأة! لم تصبح مليارديرًا بعد 😂')"
+          style="padding: 10px 20px; font-size: 20px;">الزر السحري</button>
+  <p>تم تطويرها بواسطة <strong>LAHLOUCOACH</strong></p>
+</body>
+</html>
