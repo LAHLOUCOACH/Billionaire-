@@ -2,68 +2,97 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>طقم صلاة فاخر</title>
+  <title>لعبة حجر ورقة مقص أونلاين</title>
   <style>
     body {
-      font-family: sans-serif;
-      background: url('https://images.unsplash.com/photo-1612250298999-b0a6bffb7310?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
-      background-size: cover;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-    .card {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 16px;
-      padding: 24px;
+      font-family: Tahoma;
+      background-color: #f0f0f0;
       text-align: center;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-      max-width: 400px;
-    }
-    img {
-      max-width: 100%;
-      border-radius: 12px;
-      margin-bottom: 16px;
+      padding: 50px;
     }
     h1 {
-      font-size: 24px;
-      margin-bottom: 12px;
-    }
-    p {
-      font-size: 18px;
       color: #333;
     }
-    .price {
-      font-weight: bold;
+    button {
       font-size: 20px;
-      margin: 20px 0;
-    }
-    .btn {
-      display: inline-block;
-      padding: 12px 24px;
-      background-color: #28a745;
-      color: white;
-      text-decoration: none;
-      font-size: 16px;
-      border-radius: 8px;
-      transition: background 0.3s ease;
-    }
-    .btn:hover {
-      background-color: #218838;
+      margin: 10px;
+      padding: 10px 30px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <img src="https://i.postimg.cc/SNgZDFqG/71a871dd-ce52-4db8-9f9b-2da7937d26a0.jpg" alt="طقم صلاة فاخر">
-    <h1>طقم صلاة فاخر</h1>
-    <p>راحة وأناقة في كل ركعة. مثالي كهدية أو للاستعمال الشخصي.</p>
-    <div class="price">السعر: 199 درهم</div>
-    <a class="btn" href="mailto:Arkamlahlou76@gmail.com?subject=طلب%20شراء%20طقم%20صلاة&body=أرغب%20في%20طلب%20طقم%20صلاة%20فاخر.%20الرجاء%20التواصل%20معي%20لمتابعة%20الطلب.">اطلب الآن عبر الإيميل</a>
-  </div>
+
+  <h1>🎮 حجر ورقة مقص أونلاين</h1>
+  <p>اختر لعبتك:</p>
+
+  <button onclick="selectChoice('rock')">✊ حجر</button>
+  <button onclick="selectChoice('paper')">✋ ورقة</button>
+  <button onclick="selectChoice('scissors')">✌️ مقص</button>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
+
+  <script>
+    // إعداد Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyBVuIX6g7TqLtfWo", // ← مفتاحك كما في الصورة
+      authDomain: "rps-web-b8566.firebaseapp.com",
+      databaseURL: "https://rps-web-b8566-default-rtdb.firebaseio.com",
+      projectId: "rps-web-b8566",
+      storageBucket: "rps-web-b8566.appspot.com",
+      messagingSenderId: "219855653424",
+      appId: "1:219855653424:web:7cd8007f6565c38d2bbf5"
+    };
+
+    // تشغيل Firebase
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+
+    // اللاعب
+    let playerId = prompt("أدخل اسمك:");
+    let playerRef = database.ref("players/" + playerId);
+
+    // اختيار اللاعب
+    function selectChoice(choice) {
+      playerRef.set({
+        choice: choice,
+        timestamp: Date.now()
+      });
+    }
+
+    // المراقبة
+    database.ref("players").on("value", (snapshot) => {
+      const players = snapshot.val();
+      if (players) {
+        const keys = Object.keys(players);
+        if (keys.length === 2) {
+          const [p1, p2] = keys;
+          const c1 = players[p1].choice;
+          const c2 = players[p2].choice;
+
+          if (c1 && c2) {
+            showResult(p1, c1, p2, c2);
+          }
+        }
+      }
+    });
+
+    // عرض النتيجة
+    function showResult(p1, c1, p2, c2) {
+      let result = "";
+      if (c1 === c2) result = "تعادل!";
+      else if (
+        (c1 === "rock" && c2 === "scissors") ||
+        (c1 === "paper" && c2 === "rock") ||
+        (c1 === "scissors" && c2 === "paper")
+      ) result = `${p1} فاز!`;
+      else result = `${p2} فاز!`;
+
+      alert(`النتائج:\n${p1}: ${c1}\n${p2}: ${c2}\n\n${result}`);
+      database.ref("players").remove(); // إعادة اللعب
+    }
+  </script>
 </body>
 </html>
